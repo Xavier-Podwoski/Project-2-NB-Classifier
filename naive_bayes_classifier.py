@@ -1,7 +1,6 @@
 import re
 import os
 import random
-import tarfile
 from collections import defaultdict
 from math import log
 from typing import List, Dict, Tuple
