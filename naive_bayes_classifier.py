@@ -8,14 +8,6 @@ from typing import List, Dict, Tuple
 import matplotlib.pyplot as plt
 import numpy as np
 
-DATA_TAR_PATH = "20_newsgroups.tar.gz"
-DATA_DIRECTORY = "20_newsgroups"
-
-if not os.path.exists(DATA_DIRECTORY):
-        with tarfile.open(DATA_DIRECTORY, "r:gz") as tar:
-            tar.extractall()
-        os.rename("20news-18828", DATA_DIRECTORY)
-
 class NVclass:
     def __init__(self, alpha: float = 1.0):
         # Laplace smoothing and class-level data
@@ -227,13 +219,9 @@ def eval_results(results: Dict):
 def main():
     TRAIN_RATIO = 0.5
     RANDOM_SEED = 14
-
-    if not os.path.exists("20_newsgroups"):
-        print("Extracting uploaded dataset...")
-    with tarfile.open("20_newsgroups.tar.gz", "r:gz") as tar:
-        tar.extractall()
-    os.rename("20news-18828", "20_newsgroups")
-
+    DATA_DIRECTORY = "20_newsgroup"
+    DATA_TAR_PATH = "20_newsgroups.tar.gz"
+        
     # load the dataset
     docs, labels = load_data(DATA_DIRECTORY)
 
