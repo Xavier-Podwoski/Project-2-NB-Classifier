@@ -1,13 +1,20 @@
 import re
 import os
 import random
-import tarfile, urllib.request
+import tarfile
 from collections import defaultdict
 from math import log
 from typing import List, Dict, Tuple
 import matplotlib.pyplot as plt
 import numpy as np
 
+DATA_TAR_PATH = "/mnt/data/20_newsgroups.tar.gz"
+DATA_DIRECTORY = "20_newsgroups"
+
+if not os.path.exists(DATA_DIRECTORY):
+        with tarfile.open(DATA_DIRECTORY, "r:gz") as tar:
+            tar.extractall()
+        os.rename("20news-18828", DATA_DIRECTORY)
 
 class NVclass:
     def __init__(self, alpha: float = 1.0):
@@ -218,20 +225,18 @@ def eval_results(results: Dict):
     print(f"\nSee the full confusion matrix in 'confusion_matrix.png'")
 
 def main():
-    DATA_DIR = "20_newsgroups"
     TRAIN_RATIO = 0.5
     RANDOM_SEED = 14
 
     if not os.path.exists("20_newsgroups"):
-        url = "http://qwone.com/~jason/20Newsgroups/20news-18828.tar.gz"
-        urllib.request.urlretrieve(url, "20news-18828.tar.gz")
-        with tarfile.open("20news-18828.tar.gz", "r:gz") as tar:
-            tar.extractall()
-        os.rename("20news-18828", "20_newsgroups")
+        print("Extracting uploaded dataset...")
+    with tarfile.open("/mnt/data/20_newsgroups.tar.gz", "r:gz") as tar:
+        tar.extractall()
+    os.rename("20news-18828", "20_newsgroups")
 
     # load the dataset
     print("Loading dataset...")
-    docs, labels = load_data(DATA_DIR)
+    docs, labels = load_data(DATA_DIRECTORY)
     print(f"Loaded {len(docs)} documents from {len(set(labels))} categories.\n")
 
     # split data
@@ -247,7 +252,6 @@ def main():
 
     # print results
     eval_results(results)
-
 
 if __name__ == "__main__":
     main()
