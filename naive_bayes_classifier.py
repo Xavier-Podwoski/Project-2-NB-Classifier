@@ -1,6 +1,7 @@
 import re
 import os
 import random
+import tarfile, urllib.request
 from collections import defaultdict
 from math import log
 from typing import List, Dict, Tuple
@@ -239,24 +240,32 @@ def eval_results(results: Dict):
         row = [true_cls[:15]] + [str(int(cm_array[i, j])) for j in range(len(classes))]
         table_data.append(row)
 
-        table = ax.table(cellText=table_data, cellLoc='center', loc='center')
-        table.auto_set_font_size(False)
-        table.set_fontsize(8)
-        table.scale(1, 1.5)
+    table = ax.table(cellText=table_data, cellLoc='center', loc='center')
+    table.auto_set_font_size(False)
+    table.set_fontsize(8)
+    table.scale(1, 1.5)
 
-        plt.savefig('confusion_matrix.png', dpi=150, bbox_inches='tight')
-        plt.close()
+    plt.savefig('confusion_matrix.png', dpi=150, bbox_inches='tight')
+    plt.close()
 
-        print(f"\nSee the full confusion matrix in 'confusion_matrix.png'")
+    print(f"\nSee the full confusion matrix in 'confusion_matrix.png'")
+
 def main():
-    # main
-    # config path to dataset folder
     DATA_DIR = "20_newsgroups"
     TRAIN_RATIO = 0.5
     RANDOM_SEED = 14
 
-    # load dataset
+    if not os.path.exists("20_newsgroups"):
+        url = "http://qwone.com/~jason/20Newsgroups/20news-18828.tar.gz"
+        urllib.request.urlretrieve(url, "20news-18828.tar.gz")
+        with tarfile.open("20news-18828.tar.gz", "r:gz") as tar:
+            tar.extractall()
+        os.rename("20news-18828", "20_newsgroups")
+
+    # load the dataset
+    print("Loading dataset...")
     docs, labels = load_data(DATA_DIR)
+    print(f"Loaded {len(docs)} documents from {len(set(labels))} categories.\n")
 
     # split data
     train_docs, train_labels, test_docs, test_labels = split_dataset(
