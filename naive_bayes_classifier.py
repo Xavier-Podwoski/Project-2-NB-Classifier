@@ -170,35 +170,6 @@ def split_dataset(docs: List[str], labels: List[str],
     return train_docs, train_labels, test_docs, test_labels
 
 def eval_results(results: Dict):
-    # fix errors
-    # fix formatting multiple classes being printed
-    # print results
-    # add confusion matrix
-
-    print(f"\nOverall Accuracy: {results['accuracy']:.4f} ({results['accuracy']*100:.2f}%)")
-    print(f"\nAverage Metrics:")
-    print(f" Precision: {results['m_precision']:.4f}")
-    print(f" Recall:    {results['m_recall']:.4f}")
-    print(f" F1-Score:  {results['macro_f1']:.4f}")
-
-    print(f"\n{'Class':<30} {'Precision':>10} {'Recall':>10} {'F1':>10}")
-
-    for cls, metrics in sorted(results['class_metrics'].items()):
-        print(f"{cls:<30} {metrics['precision']:>10.4f} {metrics['recall']:>10.4f} "
-              f"{metrics['f1']:>10.4f}")
-
-    # save confusion matrix as image
-    classes = sorted(results['class_metrics'].keys())
-    cm = results['confusion_matrix']
-
-    # convert to numpy array
-    cm_array = np.array([[cm[true_cls][pred_cls] for pred_cls in classes]
-                         for true_cls in classes])
-
-    # create figure
-    fig, ax = plt.subplots(figsize=(10, 8))
-
-def eval_results(results: Dict):
     print(f"\nOverall Accuracy: {results['accuracy']:.4f} ({results['accuracy']*100:.2f}%)")
     print(f"\nAverage Metrics:")
     print(f" Precision: {results['m_precision']:.4f}")
