@@ -8,7 +8,7 @@ from typing import List, Dict, Tuple
 import matplotlib.pyplot as plt
 import numpy as np
 
-DATA_TAR_PATH = "/mnt/data/20_newsgroups.tar.gz"
+DATA_TAR_PATH = "20_newsgroups.tar.gz"
 DATA_DIRECTORY = "20_newsgroups"
 
 if not os.path.exists(DATA_DIRECTORY):
@@ -230,14 +230,12 @@ def main():
 
     if not os.path.exists("20_newsgroups"):
         print("Extracting uploaded dataset...")
-    with tarfile.open("/mnt/data/20_newsgroups.tar.gz", "r:gz") as tar:
+    with tarfile.open("20_newsgroups.tar.gz", "r:gz") as tar:
         tar.extractall()
     os.rename("20news-18828", "20_newsgroups")
 
     # load the dataset
-    print("Loading dataset...")
     docs, labels = load_data(DATA_DIRECTORY)
-    print(f"Loaded {len(docs)} documents from {len(set(labels))} categories.\n")
 
     # split data
     train_docs, train_labels, test_docs, test_labels = split_dataset(
