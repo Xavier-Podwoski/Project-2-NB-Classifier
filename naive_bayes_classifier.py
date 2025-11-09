@@ -199,10 +199,6 @@ def eval_results(results: Dict):
     fig, ax = plt.subplots(figsize=(10, 8))
 
 def eval_results(results: Dict):
-    # fix errors
-    # fix formatting multiple classes being printed
-    # print results
-    # add confusion matrix
     print(f"\nOverall Accuracy: {results['accuracy']:.4f} ({results['accuracy']*100:.2f}%)")
     print(f"\nAverage Metrics:")
     print(f" Precision: {results['m_precision']:.4f}")
