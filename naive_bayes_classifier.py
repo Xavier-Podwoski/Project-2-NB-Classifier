@@ -213,8 +213,6 @@ def eval_results(results: Dict):
     plt.savefig('confusion_matrix.png', dpi=150, bbox_inches='tight')
     plt.close()
 
-    print(f"\nSee the full confusion matrix in 'confusion_matrix.png'")
-
 def main():
     TRAIN_RATIO = 0.5
     RANDOM_SEED = 14
