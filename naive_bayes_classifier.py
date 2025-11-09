@@ -210,8 +210,10 @@ def eval_results(results: Dict):
     table.set_fontsize(8)
     table.scale(1, 1.5)
 
+    fig.canvas.draw()
+    
     plt.savefig('confusion_matrix.png', dpi=150, bbox_inches='tight')
-    plt.close()
+    plt.close(fig)
 
 def main():
     TRAIN_RATIO = 0.5
